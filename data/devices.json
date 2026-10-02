@@ -1,0 +1,97 @@
+{
+  "host": {
+    "nodes": [
+      {
+        "id": "a",
+        "kind": "sensor",
+        "zone": "rack1",
+        "cost": 7
+      },
+      {
+        "id": "b",
+        "kind": "relay",
+        "zone": "rack1",
+        "cost": 2
+      },
+      {
+        "id": "c",
+        "kind": "sensor",
+        "zone": "rack2",
+        "cost": 3
+      },
+      {
+        "id": "d",
+        "kind": "relay",
+        "zone": "rack2",
+        "cost": 5
+      },
+      {
+        "id": "outside",
+        "kind": "relay",
+        "zone": "rack2",
+        "cost": 0
+      }
+    ],
+    "edges": [
+      {
+        "from": "a",
+        "to": "b",
+        "label": "signal"
+      },
+      {
+        "from": "c",
+        "to": "d",
+        "label": "signal"
+      },
+      {
+        "from": "d",
+        "to": "c",
+        "label": "noise"
+      },
+      {
+        "from": "a",
+        "to": "outside",
+        "label": "signal"
+      }
+    ]
+  },
+  "pattern": {
+    "nodes": [
+      {
+        "id": "probe",
+        "kinds": [
+          "sensor"
+        ],
+        "demand": 2
+      },
+      {
+        "id": "tap",
+        "kinds": [
+          "relay"
+        ],
+        "demand": 1
+      }
+    ],
+    "edges": [
+      {
+        "from": "probe",
+        "to": "tap",
+        "label": "signal"
+      }
+    ]
+  },
+  "domains": {
+    "probe": [
+      "a",
+      "c"
+    ],
+    "tap": [
+      "b",
+      "d"
+    ]
+  },
+  "capacities": {
+    "rack1": 3,
+    "rack2": 3
+  }
+}
